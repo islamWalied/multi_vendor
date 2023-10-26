@@ -22,11 +22,21 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:100',
-            'description' => 'string',
+            'name' => ["required","string","min:3","max:100","filter:php,laravel",
+                /* this is how to make a custom validation */
+
+/*                function($attributes,$value,$fails)
+            {
+                if (strtolower($value) == "laravel")
+                {
+                    $fails("this name is forbidden!");
+                }
+            },*/],
+            'description' => 'nullable|string',
             'status' => 'in:active,archived',
             'image' => 'image',
-            'parent_id' => 'numeric|exists:categories,id',
+            'parent_id' => 'nullable|numeric|exists:categories,id',
+
         ];
     }
 }

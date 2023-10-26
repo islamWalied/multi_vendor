@@ -23,7 +23,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|max:100',
-            'description' => 'string',
+            'description' => 'nullable|string',
             'status' => 'in:active,archived',
             'image' => 'image',
             'parent_id' => 'nullable|numeric|exists:categories,id',
