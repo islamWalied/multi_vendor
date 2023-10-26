@@ -25,6 +25,7 @@
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Parent</th>
+            <th scope="col">Image</th>
             <th >Created At</th>
             <th scope="col">Controls</th>
         </tr>
@@ -35,6 +36,11 @@
                 <th scope="row">{{$category->id}}</th>
                 <td>{{$category->name}}</td>
                 <td>{{$category->parent_id}}</td>
+                <td>
+                    <a href="{{asset('storage/' . $category->image)}}">
+                        <img src="{{asset('storage/' . $category->image)}}" height="60px" />
+                    </a>
+                </td>
                 <td>{{$category->created_at}}</td>
                 <td>
                     <a href="{{route('categories.edit',$category->id)}}" class="btn btn-sm btn-outline-success ">Edit</a>

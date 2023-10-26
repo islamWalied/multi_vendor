@@ -12,7 +12,13 @@
         @csrf
         <div class="form-group">
             <label for="name">Category Name</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Category Name">
+            <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror"
+                   placeholder="Category Name" value="{{old('name')}}">
+            @error('name')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
         <div class="form-group">
             <label for="">Category Parent</label>
@@ -25,7 +31,7 @@
         </div>
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea name="description" id="description" class="form-control" placeholder="Description"></textarea>
+            <textarea name="description" id="description" class="form-control" placeholder="Description">{{old('description')}}</textarea>
         </div>
         <div class="form-group">
             <label for="image">Category Image</label>

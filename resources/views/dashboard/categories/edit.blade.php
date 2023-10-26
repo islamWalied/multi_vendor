@@ -13,7 +13,12 @@
         @method('PATCH')
         <div class="form-group">
             <label for="name">Category Name</label>
-            <input type="text" name="name" id="name" class="form-control" placeholder="Category Name" value="{{$category->name}}">
+            <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Category Name" value="{{$category->name}}">
+            @error('name')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
         <div class="form-group">
             <label for="">Category Parent</label>
@@ -33,6 +38,12 @@
             <input type="file" name="image" id="image" class="form-control">
         </div>
         <div class="form-group">
+            <a href="{{asset('storage/' . $category->image)}}">
+                <img src="{{asset('storage/' . $category->image)}}" height="80px" />
+            </a>
+        </div>
+
+        <div class="form-group">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="status" id="flexRadioDefault1" value="active" @checked($category->status == 'active')>
                 <label class="form-check-label" for="flexRadioDefault1">
@@ -47,7 +58,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 
 @endsection
