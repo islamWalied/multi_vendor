@@ -28,7 +28,8 @@ class CategoryController extends Controller
     public function create()
     {
         $parents = Category::all();
-        return view('dashboard.categories.create',compact('parents'));
+        $category = new Category();
+        return view('dashboard.categories.create',compact('parents','category'));
     }
 
     /**
@@ -50,7 +51,7 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->post('name')),
         ]);
 
-        return Redirect::route('categories.index')->with('success','the category is created successfully');
+        return Redirect::route('categories.index')->with('success','Category Added!');
     }
 
     /**
@@ -81,7 +82,9 @@ class CategoryController extends Controller
         $image = $category->image;
         if ($request->hasFile('image'))
         {
-            Storage::delete($category->image);
+            if ($category->image)
+                Storage::delete($category->image);
+
             $image = $request->file('image')->store('categories','public');
         }
         $category->update([
@@ -93,7 +96,7 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->post('name')),
         ]);
 
-        return Redirect::route('categories.index')->with('success','the category is updated successfully');
+        return Redirect::route('categories.index')->with('info','Category Updated!');
     }
 
     /**
@@ -107,7 +110,7 @@ class CategoryController extends Controller
             Storage::delete($category->image);
         }
         $category->delete();
-        return Redirect::route('categories.index')->with('success','the category is deleted successfully');
+        return Redirect::route('categories.index')->with('danger','Category Deleted!');
 
     }
 }

@@ -47,8 +47,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
+                        @section('breadcrumb')
                         <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-                        @yield('breadcrumb')
+                        @show
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->

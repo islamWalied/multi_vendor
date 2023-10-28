@@ -33,7 +33,7 @@ class StoreCategoryRequest extends FormRequest
                 }
             },*/],
             'description' => 'nullable|string',
-            'status' => 'in:active,archived',
+            'status' => 'required|in:active,archived',
             'image' => 'image',
             'parent_id' => 'nullable|numeric|exists:categories,id',
 

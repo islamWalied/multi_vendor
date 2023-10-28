@@ -2,17 +2,15 @@
 
 @section('title','Categories')
 @section('breadcrumb')
+    @parent
     <li class="breadcrumb-item active">Categories</li>
 @endsection
 
 
 @section('content')
-    @if(session()->has('success'))
-        <div class="alert alert-success">
-            {{session('success')}}
-        </div>
-
-    @endif
+    <x-alert type="success"/>
+    <x-alert type="info"/>
+    <x-alert type="danger"/>
     <div class="mb-3 text-right">
         <a href="{{route('categories.create')}}" class="btn btn-outline-primary">
             New Category
@@ -37,9 +35,13 @@
                 <td>{{$category->name}}</td>
                 <td>{{$category->parent_id}}</td>
                 <td>
+                    @if($category->image)
                     <a href="{{asset('storage/' . $category->image)}}">
                         <img src="{{asset('storage/' . $category->image)}}" height="60px" />
                     </a>
+                    @else
+                        <span>No Image</span>
+                    @endif
                 </td>
                 <td>{{$category->created_at}}</td>
                 <td>
