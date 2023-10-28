@@ -1,8 +1,17 @@
 <div class="form-group">
     @if($status == "input")
-        <label for="{{$name}}">{{$title}}</label>
-        <input type="{{$type}}" name="{{$name}}" id="{{$name}}" class="form-control @error($name) is-invalid @enderror"
-               placeholder="{{$title}}" value="{{old($name,$value)}}">
+{{--        <label for="{{$name}}">{{$title ?? ""}}</label>--}}
+        <input
+            type="{{$type}}"
+            name="{{$name}}"
+            id="{{$name}}"
+            placeholder="{{$title ?? ""}}"
+            value="{{old($name,$value)}}"
+{{--            class="form-control @error($name) is-invalid @enderror"--}}
+            {{$attributes->class([
+    'form-control',
+    'is-invalid' => $errors->has($name)
+])}}>
 
     @elseif($status == "textarea")
         <label for="{{$name}}">{{$title}}</label>
