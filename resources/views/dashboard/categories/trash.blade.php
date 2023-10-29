@@ -4,6 +4,7 @@
 @section('breadcrumb')
     @parent
     <li class="breadcrumb-item active">Categories</li>
+    <li class="breadcrumb-item active">Trashed Categories</li>
 @endsection
 
 
@@ -12,22 +13,17 @@
     <x-alert type="info"/>
     <x-alert type="danger"/>
     <div class="mb-3 text-right">
-        <a href="{{route('categories.trash')}}" class="btn btn-outline-light">
-            Trash
-        </a>
-        <a href="{{route('categories.create')}}" class="btn btn-outline-primary">
-            New Category
+        <a href="{{route('categories.index')}}" class="btn btn-outline-primary">
+            Back
         </a>
     </div>
 <form action="{{\Illuminate\Support\Facades\URL::current()}}" method="get" class="d-flex justify-content-between mb-4">
-{{--    <div class="input-group">--}}
         <input type="search" class="form-control mx-2" name="name" placeholder="Name" value="{{request('name')}}">
         <select name="status" class="form-control">
             <option value="">All</option>
             <option value="active" @selected(request('status') == 'active')>Active</option>
             <option value="archived" @selected(request('status') == 'archived')>Archived</option>
         </select>
-{{--    </div>--}}
     <button class="btn btn-dark mx-2">Filter</button>
 </form>
     <table class="table">
@@ -35,10 +31,9 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Parent</th>
             <th scope="col">Status</th>
             <th scope="col">Image</th>
-            <th >Created At</th>
+            <th >Deleted At</th>
             <th scope="col">Controls</th>
         </tr>
         </thead>
@@ -47,7 +42,6 @@
             <tr>
                 <th scope="row">{{$category->id}}</th>
                 <td>{{$category->name}}</td>
-                <td>{{$category->parent_name}}</td>
                 <td>{{$category->status}}</td>
                 <td>
                     @if($category->image)
@@ -58,14 +52,20 @@
                         <span>No Image</span>
                     @endif
                 </td>
-                <td>{{$category->created_at}}</td>
+                <td>{{$category->deleted_at}}</td>
                 <td>
-                    <a href="{{route('categories.edit',$category->id)}}" class="btn btn-sm btn-outline-success ">Edit</a>
-                    <form action="{{route('categories.destroy',$category->id)}}" method="post" style="display: inline-block">
-                                      <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <form action="{{route('categories.restore',$category->id)}}" method="post" style="display: inline-block">
                         @csrf
-{{--                                          Form Method Spoofing--}}
-                                            <input type="hidden" name="_method" value="delete">
+                        {{--Form Method Spoofing--}}
+                        @method('Patch')
+
+                        <button type="submit" class="btn btn-sm btn-outline-info">Restore</button>
+                    </form>
+                    <form action="{{route('categories.forceDelete',$category->id)}}" method="post" style="display: inline-block">
+{{--                        <input type="hidden" name="_token" value="{{csrf_token()}}">--}}
+                        @csrf
+{{--                        Form Method Spoofing--}}
+{{--                        <input type="hidden" name="_method" value="delete">--}}
                         @method('DELETE')
 
                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
