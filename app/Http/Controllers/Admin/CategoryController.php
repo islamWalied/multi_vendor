@@ -21,17 +21,36 @@ class CategoryController extends Controller
 //        $categories = Category::all(); // return collection object {{ show all categories }}
 //        $categories = Category::simplePaginate(2); // show 2 of categories and show also next and previous only
 
+        //this is how to make a filter in controller but we can do it by another way to be more clean
 
-        $query = Category::query();
-        if ($name = $request->query('name'))
-        {
-            $query->where('name', 'LIKE',"%{$name}%");
-        }
-        if ($status = $request->query('status'))
-        {
-            $query->whereStatus($status);
-        }
-        $categories = $query->paginate(2); // show 2 of categories with number of page
+//        $query = Category::query();
+//        if ($name = $request->query('name'))
+//        {
+//            $query->where('name', 'LIKE',"%{$name}%");
+//        }
+//        if ($status = $request->query('status'))
+//        {
+//            $query->whereStatus($status);
+//        }
+
+
+
+        /* this is how to use local scope in ORM  */
+
+        /* $categories = Category::active()->paginate(2); */
+
+//         $categories = Category::filter($request->query())->paginate(2);
+
+         $categories = Category::leftJoin('categories as p', "p.id" ,'=',"categories.parent_id")
+             ->select([
+                 "categories.*",
+                 "p.name as parent_name"
+             ])
+             ->filter($request->query())
+             ->orderBy('categories.name')
+             ->paginate(2);
+
+
         return view('dashboard.categories.index',compact('categories'));
     }
 
@@ -118,10 +137,10 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = Category::findOrFail($id);
-        if ($category->image)
-        {
-            Storage::delete($category->image);
-        }
+//        if ($category->image)
+//        {
+//            Storage::delete($category->image);
+//        }
         $category->delete();
         return Redirect::route('categories.index')->with('danger','Category Deleted!');
 

@@ -44,7 +44,7 @@
             <tr>
                 <th scope="row">{{$category->id}}</th>
                 <td>{{$category->name}}</td>
-                <td>{{$category->parent_id}}</td>
+                <td>{{$category->parent_name}}</td>
                 <td>{{$category->status}}</td>
                 <td>
                     @if($category->image)
