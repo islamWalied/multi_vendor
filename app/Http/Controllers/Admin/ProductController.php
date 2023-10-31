@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -12,7 +14,21 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+
+/*      //Here i wanted to get the products for the authenticated user and if auth user do not have stores it show all products
+        $user = Auth::user();
+        if ($user->store_id)
+        {
+            $products = Product::where('store_id','=',$user->store_id)->paginate();
+        }
+        else
+        {
+        $products = Product::paginate();
+        }*/
+        // so here i write only this as i made a global scope to run for this model
+        $products = Product::paginate();
+
+        return view('dashboard.products.index',compact('products'));
     }
 
     /**
