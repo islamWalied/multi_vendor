@@ -36,6 +36,7 @@
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Parent</th>
+            <th scope="col">Products #</th>
             <th scope="col">Status</th>
             <th scope="col">Image</th>
             <th >Created At</th>
@@ -46,14 +47,25 @@
             @forelse($categories as $category)
             <tr>
                 <th scope="row">{{$category->id}}</th>
-                <td>{{$category->name}}</td>
-                <td>{{$category->parent_name}}</td>
+                <td>
+                    <a href="{{route('categories.show',$category->id)}}">
+                        {{$category->name}}
+                    </a>
+                </td>
+                <td>{{$category->parent->name}}</td>
+                <td>{{$category->products_count}}</td>
                 <td>{{$category->status}}</td>
                 <td>
                     @if($category->image)
-                    <a href="{{asset('storage/' . $category->image)}}">
-                        <img src="{{asset('storage/' . $category->image)}}" height="60px" />
-                    </a>
+                        @if($category->image[0][0] =='h')
+                            <a href="{{asset(/*'storage/' . */$category->image)}}">
+                                <img src="{{asset(/*'storage/' . */$category->image)}}" height="60px" />
+                            </a>
+                        @else
+                            <a href="{{asset('storage/' . $category->image)}}">
+                                <img src="{{asset('storage/' . $category->image)}}" height="60px" />
+                            </a>
+                        @endif
                     @else
                         <span>No Image</span>
                     @endif
@@ -62,10 +74,10 @@
                 <td>
                     <a href="{{route('categories.edit',$category->id)}}" class="btn btn-sm btn-outline-success ">Edit</a>
                     <form action="{{route('categories.destroy',$category->id)}}" method="post" style="display: inline-block">
-                                      <input type="hidden" name="_token" value="{{csrf_token()}}">
+{{--                                      <input type="hidden" name="_token" value="{{csrf_token()}}">--}}
                         @csrf
 {{--                                          Form Method Spoofing--}}
-                                            <input type="hidden" name="_method" value="delete">
+{{--                                            <input type="hidden" name="_method" value="delete">--}}
                         @method('DELETE')
 
                         <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
@@ -74,7 +86,7 @@
             </tr>
 
             @empty
-                <tr> <td colspan="7">No Categories Found</td> </tr>
+                <tr> <td colspan="9">No Categories Found</td> </tr>
             @endforelse
         </tbody>
     </table>

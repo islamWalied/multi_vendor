@@ -1,42 +1,20 @@
 @extends('layouts.dashboard')
 
-@section('title','Products')
+@section('title',$category->name)
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Products</li>
+    <li class="breadcrumb-item active">
+        <a href="{{route('categories.index')}}">Categories</a>
+    </li>
+    <li class="breadcrumb-item active">{{$category->name}}</li>
 @endsection
 
 
 @section('content')
-    <x-alert type="success"/>
-    <x-alert type="info"/>
-    <x-alert type="danger"/>
-    <div class="mb-3 text-right">
-{{--        <a href="{{route('products.trash')}}" class="btn btn-outline-light">--}}
-{{--            Trash--}}
-{{--        </a>--}}
-        <a href="{{route('products.create')}}" class="btn btn-outline-primary">
-            New product
-        </a>
-    </div>
-<form action="{{\Illuminate\Support\Facades\URL::current()}}" method="get" class="d-flex justify-content-between mb-4">
-{{--    <div class="input-group">--}}
-        <input type="search" class="form-control mx-2" name="name" placeholder="Name" value="{{request('name')}}">
-        <select name="status" class="form-control">
-            <option value="">All</option>
-            <option value="active" @selected(request('status') == 'active')>Active</option>
-            <option value="draft" @selected(request('status') == 'draft')>Draft</option>
-            <option value="archived" @selected(request('status') == 'archived')>Archived</option>
-        </select>
-{{--    </div>--}}
-    <button class="btn btn-dark mx-2">Filter</button>
-</form>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Category</th>
             <th scope="col">Store</th>
             <th scope="col">Status</th>
             <th scope="col">Image</th>
@@ -45,16 +23,17 @@
         </tr>
         </thead>
         <tbody>
-            @forelse($products as $product)
+        @php
+            $products = $category->products()->with('store')->paginate();
+        @endphp
+        @forelse($category->products as $product)
             <tr>
-                <th scope="row">{{$product->id}}</th>
                 <td>{{$product->name}}</td>
                 {{--
                     what is the problem of this !!??!!!!???!?!?!?
                     the problem is when call it make its sql sentence to get it
                     but this is a load for your project so check the controller i will continue there
                  --}}
-                <td>{{$product->category->name}}</td>
                 <td>{{$product->store->name}}</td>
                 <td>{{$product->status}}</td>
                 <td>
@@ -83,11 +62,11 @@
                 </td>
             </tr>
 
-            @empty
-                <tr> <td colspan="7">No Products Found</td> </tr>
-            @endforelse
+        @empty
+            <tr> <td colspan="5">No Products Found</td> </tr>
+        @endforelse
         </tbody>
     </table>
+    {{$products->links()}}
 
-    {{ $products->withQueryString()->links() }}
 @endsection

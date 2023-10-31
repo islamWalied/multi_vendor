@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use function Laravel\Prompts\select;
 
 class CategoryController extends Controller
 {
@@ -21,7 +22,7 @@ class CategoryController extends Controller
 //        $categories = Category::all(); // return collection object {{ show all categories }}
 //        $categories = Category::simplePaginate(2); // show 2 of categories and show also next and previous only
 
-        //this is how to make a filter in controller but we can do it by another way to be more clean
+        // This is how to make a filter in controller ,but we can do it by another way to be more clean
 
 //        $query = Category::query();
 //        if ($name = $request->query('name'))
@@ -41,14 +42,25 @@ class CategoryController extends Controller
 
 //         $categories = Category::filter($request->query())->paginate(2);
 
-         $categories = Category::leftJoin('categories as p', "p.id" ,'=',"categories.parent_id")
+         $categories = Category::with('parent')/*leftJoin('categories as p', "p.id" ,'=',"categories.parent_id")
              ->select([
                  "categories.*",
                  "p.name as parent_name"
-             ])
+             ])*/
+             ->select('categories.*')
+
+             // I want to get the count of products for each category
+             ->selectRaw('(SELECT COUNT(*) FROM products WHERE category_id = categories.id) as products_count')
+
+             // you can use another way to get the count
+             ->withCount(
+              ['products as products_count' => function ($query)
+               {
+                   $query->where('status', '=', 'active');
+               } ])
              ->filter($request->query())
-             ->orderBy('categories.name')
-             ->paginate(2);
+             ->orderBy('categories.id')
+             ->paginate();
 
 
         return view('dashboard.categories.index',compact('categories'));
@@ -89,9 +101,9 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        //
+        return view('dashboard.categories.show',compact('category'));
     }
 
     /**

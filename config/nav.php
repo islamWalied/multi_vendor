@@ -6,21 +6,19 @@ return [
         "title" => "Dashboard",
         "route" => "dashboard",
         "active" => "dashboard",
-        "badge" => "New",
     ],
     [
         "icon" => "far fa-circle nav-icon",
         "title" => "Categories",
         "route" => "categories.index",
         "active" => "categories.*",
-        "badge" => "New",
     ],
     [
         "icon" => "far fa-circle nav-icon",
         "title" => "Products",
         "route" => "products.index",
         "active" => "products.*",
-        "badge" => "SOON",
+        "badge" => "New",
     ],
 //    [
 //        "icon" => "far fa-circle nav-icon",

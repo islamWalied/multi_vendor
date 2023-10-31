@@ -15,7 +15,8 @@ class ProductController extends Controller
     public function index()
     {
 
-/*      //Here i wanted to get the products for the authenticated user and if auth user do not have stores it show all products
+/*
+        //Here i wanted to get the products for the authenticated user and if auth user do not have stores it show all products
         $user = Auth::user();
         if ($user->store_id)
         {
@@ -26,7 +27,18 @@ class ProductController extends Controller
         $products = Product::paginate();
         }*/
         // so here i write only this as i made a global scope to run for this model
-        $products = Product::paginate();
+        /*      $products = Product::paginate();
+
+*/
+
+
+        // to be continued for what i talk in index file here laravel made something to your performance
+        // its called eager loading
+        // when you have a relationship and you want to use just pass the relationship method to with() to be good
+        // and to rest in peace just do it
+        // so i will make the eager load and show you
+
+        $products = Product::with(['category','store'])->paginate();
 
         return view('dashboard.products.index',compact('products'));
     }
