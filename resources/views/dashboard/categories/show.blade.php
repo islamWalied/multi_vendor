@@ -40,11 +40,11 @@
                     @if($product->image)
                         @if($product->image[0][0] == 'h')
                             <a href="{{asset(/*'storage/' . */$product->image)}}">
-                                <img src="{{asset(/*'storage/' . */$product->image)}}" height="60px" />
+                                <img src="{{asset(/*'storage/' . */$product->image)}}" style="height: 60px" />
                             </a>
                         @else
                             <a href="{{asset('storage/' . $product->image)}}">
-                                <img src="{{asset('storage/' . $product->image)}}" height="60px" />
+                                <img src="{{asset('storage/' . $product->image)}}" style="height: 60px" />
                             </a>
                         @endif
                     @else

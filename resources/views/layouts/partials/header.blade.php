@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{asset("plugins/fontawesome-free/css/all.min.css")}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset("dist/css/adminlte.min.css")}}">
-
+    @vite('resources/css/app.css')
     {{--
 
                                         <=> i want to preview something here <=>

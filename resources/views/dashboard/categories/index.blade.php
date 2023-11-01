@@ -59,11 +59,11 @@
                     @if($category->image)
                         @if($category->image[0][0] =='h')
                             <a href="{{asset(/*'storage/' . */$category->image)}}">
-                                <img src="{{asset(/*'storage/' . */$category->image)}}" height="60px" />
+                                <img src="{{asset(/*'storage/' . */$category->image)}}" style="height: 60px" />
                             </a>
                         @else
                             <a href="{{asset('storage/' . $category->image)}}">
-                                <img src="{{asset('storage/' . $category->image)}}" height="60px" />
+                                <img src="{{asset('storage/' . $category->image)}}" style="height: 60px" />
                             </a>
                         @endif
                     @else

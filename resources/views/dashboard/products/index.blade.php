@@ -54,18 +54,18 @@
                     the problem is when call it make its sql sentence to get it
                     but this is a load for your project so check the controller i will continue there
                  --}}
-                <td>{{$product->category->name}}</td>
+                <td>{{$product->category->name ?? ""}}</td>
                 <td>{{$product->store->name}}</td>
                 <td>{{$product->status}}</td>
                 <td>
                     @if($product->image)
                         @if($product->image[0][0] == 'h')
                             <a href="{{asset(/*'storage/' . */$product->image)}}">
-                                <img src="{{asset(/*'storage/' . */$product->image)}}" height="60px" />
+                                <img src="{{asset(/*'storage/' . */$product->image)}}" style="height: 60px" />
                             </a>
                         @else
                             <a href="{{asset('storage/' . $product->image)}}">
-                                <img src="{{asset('storage/' . $product->image)}}" height="60px" />
+                                <img src="{{asset('storage/' . $product->image)}}" style="height: 60px" />
                             </a>
                         @endif
                     @else
