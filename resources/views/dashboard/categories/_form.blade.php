@@ -1,30 +1,27 @@
+ <x-form.input name="name"
+                  title="Category Name"
+                  label="name"
+                  type="text"
+                  :value="$category->name"/>
 
-<x-form.input name="name"
-              title="Category Name"
-              type="text"
-              status="input"
-              :value="$category->name"/>
+<x-form.select name="category_id"
+               title="Category"
+               label="category_id"
+               :column="$category->parent_id"
+               :options="$parents"/>
 
-<x-form.input name="parent_id"
-              title="Category Parent"
-              :value="$parents"
-              status="select"
-              :category="$category"/>
+<x-form.textarea name="description"
+                 title="Category Description"
+                 label="textarea"
+                 :value="$category->description"/>
 
-<x-form.input name="description"
-              title="Category Description"
-              status="textarea"
-              :value="$category->description"/>
+<x-form.image name="image"
+              title="Product Image"
+              label="image"
+              type="file"
+              :value="$category->image"/>
 
-<x-form.input   name="image"
-                type="file"
-                title="Category Image"
-                status="image"
-                :value="$category->image"/>
+<x-form.radio name="status"
+              :checked="$category->status"
+              :options="['active' => 'Active','archived' => 'Archived']"/>
 
- <x-form.input   name="status"
-                 title="Category Status"
-                 type="radio"
-                 :checked="$category->status"
-                 status="status"
-                 :options="['active' => 'Active','archived' => 'Archived']"/>

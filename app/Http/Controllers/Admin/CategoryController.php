@@ -60,7 +60,7 @@ class CategoryController extends Controller
                } ])
              ->filter($request->query())
              ->orderBy('categories.id')
-             ->paginate();
+             ->paginate(5);
 
 
         return view('dashboard.categories.index',compact('categories'));

@@ -12,6 +12,7 @@
 
 <!-- REQUIRED SCRIPTS -->
 
+@stack('scripts')
 <!-- jQuery -->
 <script src="{{asset("plugins/jquery/jquery.min.js")}}"></script>
 
@@ -20,5 +21,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset("dist/js/adminlte.min.js")}}"></script>
+
 </body>
 </html>

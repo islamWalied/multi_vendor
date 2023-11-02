@@ -13,6 +13,23 @@ class Product extends Model
 {
     use HasFactory,SoftDeletes;
 
+
+    protected $fillable =[
+        'name',
+        'category_id',
+        'description',
+        'slug',
+        'image',
+        'price',
+        'compare_price',
+        'options',
+        'rating',
+        'featured',
+        'status',
+
+    ];
+
+
     protected static function booted()
     {
         // this is how to make a async function to do a global scope
@@ -33,5 +50,26 @@ class Product extends Model
     public function store()
     {
         return $this->belongsTo(Store::class);
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(
+            Tag::class, // ralated model
+            'product_tag', // pivot table name
+            'product_id', // FK in pivot table for the current model
+            'tag_id',// FK in pivot table for the related model
+            'id', // PK current model
+            'id', // PK related model
+        );
+    }
+    public function scopeFilter(Builder $builder, $filter)
+    {
+
+        $builder->when($filter['name'] ?? false,function ($builder,$value){
+            $builder->where('products.name', 'LIKE',"%{$value}%");
+        });
+        $builder->when($filter['status'] ?? false,function ($builder,$value){
+            $builder->where('products.status', '=', $value);
+        });
     }
 }
