@@ -66,7 +66,8 @@
                            type="radio"
                            value="male"
                            name="gender"
-                           class="w-4 @error('gender') is-invalid @enderror">
+                           class="w-4 @error('gender') is-invalid @enderror"
+                            @checked($user->profile->gender == 'male')>
                     <label for="default-radio-1" class=""> Male</label>
                     @error('gender')
                     <div class="invalid-feedback">
@@ -79,7 +80,8 @@
                            type="radio"
                            value="female"
                            name="gender"
-                           class="w-4 @error('gender') is-invalid @enderror">
+                           class="w-4 @error('gender') is-invalid @enderror"
+                        @checked($user->profile->gender == 'female')>
                     <label for="default-radio-2" class=""> Female</label>
                     @error('gender')
                     <div class="invalid-feedback">
@@ -96,7 +98,8 @@
                        class="  bg-gray-50 border border-gray-300 text-gray-900 text-sm
                                 rounded-lg focus:ring-blue-500 focus:border-blue-500 block
                                 w-full p-2.5 dark:placeholder-gray-400 @error('street_address') is-invalid @enderror"
-                       placeholder="Street Address" >
+                       placeholder="Street Address"
+                       value="{{$user->profile->street_address}}">
                 @error('street_address')
                 <div class="invalid-feedback">
                     {{$message}}
@@ -109,7 +112,8 @@
                        class="  bg-gray-50 border border-gray-300 text-gray-900 text-sm
                                 rounded-lg focus:ring-blue-500 focus:border-blue-500 block
                                 w-full p-2.5 dark:placeholder-gray-400 @error('city') is-invalid @enderror"
-                       placeholder="City" >
+                       placeholder="City"
+                       value="{{$user->profile->city}}">
                 @error('city')
                 <div class="invalid-feedback">
                     {{$message}}
@@ -122,7 +126,8 @@
                        class="  bg-gray-50 border border-gray-300 text-gray-900 text-sm
                                 rounded-lg focus:ring-blue-500 focus:border-blue-500 block
                                 w-full p-2.5 dark:placeholder-gray-400 @error('state') is-invalid @enderror"
-                       placeholder="State" >
+                       placeholder="State"
+                       value="{{$user->profile->state}}">
                 @error('state')
                 <div class="invalid-feedback">
                     {{$message}}
@@ -137,7 +142,8 @@
                        class="  bg-gray-50 border border-gray-300 text-gray-900 text-sm
                                 rounded-lg focus:ring-blue-500 focus:border-blue-500 block
                                 w-full p-2.5 dark:placeholder-gray-400 @error('postal_code') is-invalid @enderror"
-                       placeholder="Postal Code" >
+                       placeholder="Postal Code"
+                       value="{{$user->profile->postal_code}}">
                 @error('postal_code')
                 <div class="invalid-feedback">
                     {{$message}}
@@ -148,7 +154,7 @@
                 <select id="countries" name="country" class="border-gray-300 text-gray-900 rounded-lg block w-full p-2 @error('country') is-invalid @enderror">
                     <option selected>Choose A Country</option>
                     @foreach($countries as $country =>$text)
-                        <option value="{{$country}}">{{$text}}</option>
+                        <option value="{{$country}}" @selected($user->profile->country == $country)>{{$text}}</option>
                     @endforeach
                 </select>
 {{--                @error('country')
@@ -163,7 +169,7 @@
                 <select id="countries" name="locale" class="border-gray-300 text-gray-900 rounded-lg block w-full p-2 @error('locale') is-invalid @enderror">
                     <option value="" selected>Choose A Language</option>
                     @foreach($locale as $local =>$text)
-                        <option value="{{$local}}">{{$text}}</option>
+                        <option value="{{$local}}"  @selected($user->profile->locale == $local)>{{$text}}</option>
                     @endforeach
                 </select>
                 @error('locale')

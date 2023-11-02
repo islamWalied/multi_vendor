@@ -45,9 +45,16 @@
                 <td>{{$category->status}}</td>
                 <td>
                     @if($category->image)
-                    <a href="{{asset('storage/' . $category->image)}}">
-                        <img src="{{asset('storage/' . $category->image)}}" height="60px" />
-                    </a>
+
+                        @if($category->image[0][0] =='h')
+                            <a href="{{asset(/*'storage/' . */$category->image)}}">
+                                <img src="{{asset(/*'storage/' . */$category->image)}}" height="60px" width="60px" />
+                            </a>
+                        @else
+                            <a href="{{asset('storage/' . $category->image)}}">
+                                <img src="{{asset('storage/' . $category->image)}}" height="60px" width="60px" />
+                            </a>
+                        @endif
                     @else
                         <span>No Image</span>
                     @endif

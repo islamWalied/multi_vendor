@@ -21,12 +21,22 @@
         <label for="{{$name}}">{{$title}}</label>
         <input type="{{$type}}" name="{{$name}}" id="{{$name}}" class="form-control">
         @if($value)
-            <div class="form-group">
+{{--            <div class="form-group">
                 <a href="{{asset('storage/' . $value)}}">
                     <img src="{{asset('storage/' . $value)}}" height="80px" />
                 </a>
-            </div>
+            </div>--}}
+            @if($value[0][0] =='h')
+                <a href="{{asset(/*'storage/' . */$value)}}">
+                    <img src="{{asset(/*'storage/' . */$value)}}" style="height: 60px" />
+                </a>
+            @else
+                <a href="{{asset('storage/' . $value)}}">
+                    <img src="{{asset('storage/' . $value)}}" height="80px" />
+                </a>
+            @endif
         @endif
+
 
     @elseif($status == "status")
         <?php $i=0?>
