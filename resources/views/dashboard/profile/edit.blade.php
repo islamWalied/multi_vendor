@@ -61,34 +61,15 @@
                 @enderror
             </div>
             <div class="col-md-6">
-                <div class="col-md-3">
-                    <input id="default-radio-1"
-                           type="radio"
-                           value="male"
-                           name="gender"
-                           class="w-4 @error('gender') is-invalid @enderror"
-                            @checked($user->profile->gender == 'male')>
-                    <label for="default-radio-1" class=""> Male</label>
-                    @error('gender')
-                    <div class="invalid-feedback">
-                        {{$message}}
-                    </div>
-                    @enderror
+                <input class="w-full text-gray-900 border block p-1.5 border-gray-300 rounded-lg
+                                cursor-pointer bg-gray-50 @error('image') is-invalid @enderror"
+                       name="image"
+                       type="file">
+                @error('image')
+                <div class="invalid-feedback">
+                    {{$message}}
                 </div>
-                <div class="col-md-3">
-                    <input id="default-radio-2"
-                           type="radio"
-                           value="female"
-                           name="gender"
-                           class="w-4 @error('gender') is-invalid @enderror"
-                        @checked($user->profile->gender == 'female')>
-                    <label for="default-radio-2" class=""> Female</label>
-                    @error('gender')
-                    <div class="invalid-feedback">
-                        {{$message}}
-                    </div>
-                    @enderror
-                </div>
+                @enderror
             </div>
         </div>
         <div class="form-row mb-3">
@@ -180,36 +161,38 @@
 {{--                <x-form.select name="locale" :options="$locale"/>--}}
             </div>
         </div>
+        <div class="form-row mb-3">
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    <input id="default-radio-1"
+                           type="radio"
+                           value="male"
+                           name="gender"
+                           class="w-4 @error('gender') is-invalid @enderror"
+                        @checked($user->profile->gender == 'male')>
+                    <label for="default-radio-1" class=""> Male</label>
+                    @error('gender')
+                    <div class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                    @enderror
+                </div>
+                <div class="col-md-3">
+                    <input id="default-radio-2"
+                           type="radio"
+                           value="female"
+                           name="gender"
+                           class="w-4 @error('gender') is-invalid @enderror"
+                        @checked($user->profile->gender == 'female')>
+                    <label for="default-radio-2" class=""> Female</label>
+                    @error('gender')
+                    <div class="invalid-feedback">
+                        {{$message}}
+                    </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update</button>
     </form>
 @endsection
-
-{{--<x-form.input name="name"--}}
-{{--              title="Category Name"--}}
-{{--              type="text"--}}
-{{--              status="input"--}}
-{{--              :value="$category->name"/>--}}
-
-{{--<x-form.input name="parent_id"--}}
-{{--              title="Category Parent"--}}
-{{--              :value="$parents"--}}
-{{--              status="select"--}}
-{{--              :category="$category"/>--}}
-
-{{--<x-form.input name="description"--}}
-{{--              title="Category Description"--}}
-{{--              status="textarea"--}}
-{{--              :value="$category->description"/>--}}
-
-{{--<x-form.input   name="image"--}}
-{{--                type="file"--}}
-{{--                title="Category Image"--}}
-{{--                status="image"--}}
-{{--                :value="$category->image"/>--}}
-
-{{--<x-form.input   name="status"--}}
-{{--                title="Category Status"--}}
-{{--                type="radio"--}}
-{{--                :checked="$category->status"--}}
-{{--                status="status"--}}
-{{--                :options="['active' => 'Active','archived' => 'Archived']"/>--}}

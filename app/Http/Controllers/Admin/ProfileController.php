@@ -39,23 +39,29 @@ class ProfileController extends Controller
            'gender' => ['required','in:male,female'],
            'country' => ['required','string','size:2'],
            'locale' => ['required','string','size:3'],
+           'image' => ['nullable','image'],
         ]);
+        $image = $user->profile->image;
+        if ($request->hasFile('image'))
+        {
+            $image = $request->file('image')->store('profiles','public');
+        }
+        $user->profile->fill([
+            'user_id' => Auth::user()->id,
+            'first_name' =>$request->first_name ?? $user->first_name,
+            'last_name' =>$request->last_name ?? $user->last_name,
+            'birthday' =>$request->birthday ?? $user->birthday,
+            'gender' =>$request->gender ?? $user->gender,
+            'street_address' =>$request->street_address ?? $user->street_address,
+            'locale' =>$request->input('locale') ?? $user->locale,
+            'city' =>$request->city ?? $user->city,
+            'state' =>$request->state ?? $user->state,
+            'postal_code' =>$request->postal_code ?? $user->postal_code,
+            'country' =>$request->country ?? $user->country,
+            'image' =>$image,
 
-//        $user->profile->update([
-//            'user_id' => Auth::user()->id,
-//            'first_name' =>$request->first_name ?? $user->first_name,
-//            'last_name' =>$request->last_name ?? $user->last_name,
-//            'birthday' =>$request->birthday ?? $user->birthday,
-//            'gender' =>$request->gender ?? $user->gender,
-//            'street_address' =>$request->street_address ?? $user->street_address,
-//            'locale' =>$request->input('locale') ?? $user->locale,
-//            'city' =>$request->city ?? $user->city,
-//            'state' =>$request->state ?? $user->state,
-//            'postal_code' =>$request->postal_code ?? $user->postal_code,
-//            'country' =>$request->country ?? $user->country,
-//
-//        ]);
-        $user->profile->fill($request->all())->save();
+        ])->save();
+//        $user->profile->fill($request->all())->save();
 
         //instead of all of this i can use the above code
 /*        $profile = $user->profile;

@@ -22,6 +22,7 @@ class Profile extends Model
         'postal_code',
         'country',
         'locale',
+        'image',
     ];
 
     public function user()

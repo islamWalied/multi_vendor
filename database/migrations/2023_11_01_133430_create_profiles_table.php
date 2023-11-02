@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('postal_code')->nullable();
             $table->char('country',2);
             $table->char('locale',3)->default('en');
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->primary('user_id');
         });

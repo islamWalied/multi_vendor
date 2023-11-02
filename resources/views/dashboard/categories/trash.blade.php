@@ -63,9 +63,7 @@
                 <td>
                     <form action="{{route('categories.restore',$category->id)}}" method="post" style="display: inline-block">
                         @csrf
-                        {{--Form Method Spoofing--}}
                         @method('Patch')
-
                         <button type="submit" class="btn btn-sm btn-outline-info">Restore</button>
                     </form>
                     <form action="{{route('categories.forceDelete',$category->id)}}" method="post" style="display: inline-block">

@@ -10,13 +10,30 @@
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         @if(Auth::check())
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class=" mt-3 pb-3 d-flex justify-center">
                 <div class="image">
-                    <img src="{{asset("dist/img/user2-160x160.jpg")}}" class="img-circle elevation-2" alt="User Image">
+                    @if($user->profile->image)
+                    <a href="{{asset('storage/' . $user->profile->image)}}">
+                        <img src="{{asset("storage/" . $user->profile->image)}}" class="rounded-full w-36 h-34" alt=" Image">
+                    </a>
+                    @else
+                        {{--
+                        TODO
+                        make an avatar for the user if he didn't update his profile
+
+                        --}}
+                    @endif
                 </div>
-                <div class="info">
-                    <a href="{{route("dashboard.profile.edit")}}" class="d-block">{{Auth::user()->name}}</a>
-                </div>
+            </div>
+            <div class="info text-center mb-3">
+                <a href="{{route("dashboard.profile.edit")}}"
+                   class="d-block font-weight-bold">
+                    @if($user->profile->first_name && $user->profile->last_name)
+                    {{$user->profile->first_name . " " . $user->profile->last_name}}
+                    @else
+                        {{Auth::user()->name}}
+                    @endif
+                </a>
             </div>
         @endif
 

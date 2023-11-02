@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        // Share the authenticated user instance with specific views
+        View::composer(['dashboard.*', 'dashboard.products.*', 'dashboard.categories.*'], function ($view) {
+            $view->with('user', Auth::user());
+        });
+
         //this is how to make a custom validation
         Validator::extend('filter',function($attribute,$value,$params) {
             return ! in_array(strtolower($value),$params);
