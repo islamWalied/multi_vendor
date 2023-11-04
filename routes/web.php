@@ -15,9 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', [\App\Http\Controllers\Front\HomeController::class,'index'])->name('home');
+
+
+Route::get('/products', [\App\Http\Controllers\Front\ProductController::class,'index'])
+    ->name('product.index');
+
+Route::get('/products/{product:slug}', [\App\Http\Controllers\Front\ProductController::class,'show'])
+    ->name('product.show');
+
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
