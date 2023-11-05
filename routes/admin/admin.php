@@ -6,9 +6,9 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use \Illuminate\Support\Facades\Route;
 
-Route::get("/dashboard", [DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','auth.type:admin,super-admin'])->group(function () {
+    Route::get("/dashboard", [DashboardController::class,'index'])->name('dashboard');
     // categories routes
     Route::get('dashboard/categories/trash',[CategoryController::class,'trash'])->name('categories.trash');
     Route::patch('dashboard/categories/{category}/restore',[CategoryController::class,'restore'])->name('categories.restore');
