@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/home', [\App\Http\Controllers\Front\HomeController::class,'index'])->name('home');
+Route::get('/', [\App\Http\Controllers\Front\HomeController::class,'index'])->name('home');
 
 
 Route::get('/products', [\App\Http\Controllers\Front\ProductController::class,'index'])
@@ -24,7 +25,7 @@ Route::get('/products', [\App\Http\Controllers\Front\ProductController::class,'i
 Route::get('/products/{product:slug}', [\App\Http\Controllers\Front\ProductController::class,'show'])
     ->name('product.show');
 
-
+Route::resource('cart',\App\Http\Controllers\Front\CartController::class);
 
 
 
