@@ -1,10 +1,14 @@
+@props([
+    'value' => '','type','name','label','title'
+    ])
+
 <div class="mb-6 col-md-6">
     <label class="block mb-2 text-sm font-medium text-gray-900" for="{{$label}}">{{$title ?? ""}}</label>
     <input
            id="{{$label}}"
-           name="{{$name}}"
            type="{{$type}}"
-           value="{{old($name,$value)}}"
+           name="{{$name}}"
+           value="{{old($name,$value ?? '')}}"
            placeholder="{{$title}}"
             {{$attributes->class([
                                 'block',

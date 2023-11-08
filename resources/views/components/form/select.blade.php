@@ -1,7 +1,7 @@
 <div class="mb-6 col-md-6">
 
 
-<label for="category" class="block mb-2 text-sm font-medium text-gray-900">Select an option</label>
+<label class="block mb-2 text-sm font-medium text-gray-900">Select an option</label>
 
 <select name="{{$name}}"
 

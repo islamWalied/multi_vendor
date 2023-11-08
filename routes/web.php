@@ -26,6 +26,8 @@ Route::get('/products/{product:slug}', [\App\Http\Controllers\Front\ProductContr
     ->name('product.show');
 
 Route::resource('cart',\App\Http\Controllers\Front\CartController::class);
+Route::get('checkout',[\App\Http\Controllers\Front\OrderController::class,'create'])->name('checkout');
+Route::post('checkout',[\App\Http\Controllers\Front\OrderController::class,'store']);
 
 
 
