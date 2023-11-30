@@ -22,7 +22,7 @@
                 <div class="content">
                     <h4><a href="{{route('product.show',$item->product->slug)}}">
                         {{$item->product->name}}</a></h4>
-                    <p class="quantity">1x - <span class="amount">{{\App\Helper\Currency::format($item->product->price)}}</span></p>
+                    <p class="quantity">{{$item->quantity}}x - <span class="amount">{{\App\Helper\Currency::format($item->product->price)}}</span></p>
                 </div>
             </li>
             @endforeach

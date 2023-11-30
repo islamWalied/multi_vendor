@@ -103,7 +103,7 @@
                                         <li>Cart Subtotal<span>{{\App\Helper\Currency::format($cart->total())}}</span></li>
                                         <li>Shipping<span>Free</span></li>
                                         <li>You Save<span>$29.00</span></li>
-                                        <li class="last">You Pay<span>$2531.00</span></li>
+                                        <li class="last">You Pay<span>{{\App\Helper\Currency::format($cart->total())}}</span></li>
                                     </ul>
                                     <div class="button">
                                         <a href="{{route('checkout')}}" class="btn">Checkout</a>
@@ -122,10 +122,36 @@
 
     @push('scripts')
         <script>
-            const csrf_token = "{{csrf_token()}}"
+            const csrf_token = "{{csrf_token()}}";
+            (function($)
+            {
+                $('.item-quantity').on('change', function (e) {
+
+                    $.ajax({
+                        url: "/cart/" + $(this).data('id'),
+                        method: 'put',
+                        data: {
+                            quantity: $(this).val(),
+                            _token: csrf_token
+                        }
+                    });
+                });
+
+                $('.remove-item').on('click', function (e) {
+
+                    let id = $(this).data('id');
+                    $.ajax({
+                        url: "/cart/" + id,
+                        method: 'delete',
+                        data: {
+                            _token: csrf_token
+                        },
+                        success: response => {
+                            $(`#${id}`).remove();
+                        }
+                    });
+                });
+            })(jQuery);
         </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="{{asset('js/cart.js')}}"></script>
     @endpush
-{{--    @vite('js/cart.js')--}}
 </x-front-layout>

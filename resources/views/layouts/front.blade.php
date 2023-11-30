@@ -23,14 +23,14 @@
 
 <body>
 <!-- Preloader -->
-<div class="preloader">
-    <div class="preloader-inner">
-        <div class="preloader-icon">
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</div>
+{{--<div class="preloader">--}}
+{{--    <div class="preloader-inner">--}}
+{{--        <div class="preloader-icon">--}}
+{{--            <span></span>--}}
+{{--            <span></span>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <!-- /End Preloader -->
 
 <!-- Start Header Area -->
@@ -447,6 +447,7 @@
 <script src="{{asset('assets/js/tiny-slider.js')}}"></script>
 <script src="{{asset('assets/js/glightbox.min.js')}}"></script>
 <script src="{{asset('assets/js/main.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 @stack('scripts')
 </body>
 

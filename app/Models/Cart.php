@@ -19,6 +19,7 @@ class Cart extends Model
         'user_id',
         'product_id',
         'quantity',
+        'options',
     ];
 
     // Events
